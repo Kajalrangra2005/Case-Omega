@@ -1,0 +1,11 @@
+2026-11-10T02:14:20+05:30 WS-BILL-07 rsharma PROC_CREATE parent=WINWORD.EXE child=powershell.exe cmd="powershell -nop -w hidden -enc <b64>"
+2026-11-10T02:14:31+05:30 WS-BILL-07 rsharma NET_CONNECT proc=powershell.exe dst=203.0.113.45:80 note=download upd_svc.exe
+2026-11-10T02:14:33+05:30 WS-BILL-07 rsharma FILE_CREATE C:\Users\Public\upd_svc.exe
+2026-11-10T02:41:05+05:30  WS-BILL-07 rsharma PROC_CREATE parent=upd_svc.exe child=rundll32.exe cmd="comsvcs.dll MiniDump lsass" note=credential dumping
+2026-11-10T03:02:11+05:30  SRV-EHR-01 svc_backup FILE_CREATE C:\Users\Public\upd_svc.exe note=copied over SMB admin share
+2026-11-10T03:03:20+05:30  SRV-EHR-01 svc_backup PROC_CREATE parent=cmd.exe child=upd_svc.exe cmd="upd_svc.exe --stage"
+2026-11-10T03:31:45+05:30 SRV-EHR-01 svc_backup PROC_CREATE parent=upd_svc.exe child=vssadmin.exe cmd="vssadmin delete shadows /all /quiet"
+2026-11-10T03:32:10+05:30 SRV-EHR-01 svc_backup PROC_CREATE parent=upd_svc.exe child=wbadmin.exe cmd="wbadmin delete catalog -quiet"
+2026-11-10T03:33:02+05:30  SRV-EHR-01 svc_backup PROC_CREATE parent=upd_svc.exe child=schtasks.exe cmd="schtasks /create /tn WinUpdateSvc /tr C:\Users\Public\upd_svc.exe /sc onlogon"
+2026-11-10T03:33:09+05:30  SRV-EHR-01 svc_backup REG_SET HKCU\Software\Microsoft\Windows\CurrentVersion\Run\WinUpdateSvc=C:\Users\Public\upd_svc.exe
+2026-11-10T03:35:00+05:30  SRV-EHR-01 svc_backup PROC_CREATE parent=upd_svc.exe child=upd_svc.exe cmd="upd_svc.exe --run" note=encryption phase starts

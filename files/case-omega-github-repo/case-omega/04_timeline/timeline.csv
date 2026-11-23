@@ -1,0 +1,57 @@
+timestamp_IST,timestamp_UTC,source,phase,event
+2026-11-10T01:10:00+05:30,2026-11-09T19:40:00+00:00,auth_events,0 Context,DC-01 4625 FAILED logon user=rsharma src=WS-BILL-07 note=typo
+2026-11-10T01:52:10+05:30,2026-11-09T20:22:10+00:00,mail_gateway,1 Initial access,"DELIVER from=billing-update@mediclaims-portal.example to=rsharma@cityhospital.example subj=""Pending insurance claim #88213"" attach=claim_88213.docm spf=fail"
+2026-11-10T01:52:44+05:30,2026-11-09T20:22:44+00:00,mail_gateway,1 Initial access,"DELIVER from=billing-update@mediclaims-portal.example to=accounts@cityhospital.example subj=""Pending insurance claim #88213"" attach=claim_88213.docm spf=fail"
+2026-11-10T02:09:12+05:30,2026-11-09T20:39:12+00:00,auth_events,0 Context,DC-01 4624 SUCCESS logon user=rsharma type=2 src=WS-BILL-07
+2026-11-10T02:09:40+05:30,2026-11-09T20:39:40+00:00,browser_history,0 Context,WS-BILL-07 rsharma visited https://mail.cityhospital.example/inbox
+2026-11-10T02:14:03+05:30,2026-11-09T20:44:03+00:00,browser_history,0 Context,WS-BILL-07 rsharma visited https://mediclaims-portal.example/claims/88213
+2026-11-10T02:14:20+05:30,2026-11-09T20:44:20+00:00,process_events,1 Initial access,"WS-BILL-07 rsharma PROC_CREATE parent=WINWORD.EXE child=powershell.exe cmd=""powershell -nop -w hidden -enc <b64>"""
+2026-11-10T02:14:31+05:30,2026-11-09T20:44:31+00:00,firewall,2 Execution,FW-EDGE ALLOW WS-BILL-07 10.20.5.17 -> 203.0.113.45:80 bytes=412311
+2026-11-10T02:14:31+05:30,2026-11-09T20:44:31+00:00,process_events,2 Execution,WS-BILL-07 rsharma NET_CONNECT proc=powershell.exe dst=203.0.113.45:80 note=download upd_svc.exe
+2026-11-10T02:14:31+05:30,2026-11-09T20:44:31+00:00,browser_history,2 Execution,WS-BILL-07 rsharma visited http://203.0.113.45/dl/upd_svc.exe
+2026-11-10T02:14:33+05:30,2026-11-09T20:44:33+00:00,process_events,2 Execution,WS-BILL-07 rsharma FILE_CREATE C:\Users\Public\upd_svc.exe
+2026-11-10T02:41:05+05:30,2026-11-09T21:11:05+00:00,process_events,3 Credential access,"WS-BILL-07 rsharma PROC_CREATE parent=upd_svc.exe child=rundll32.exe cmd=""comsvcs.dll MiniDump lsass"" note=credential dumping"
+2026-11-10T02:44:30+05:30,2026-11-09T21:14:30+00:00,auth_events,3 Credential access,DC-01 4624 SUCCESS logon user=svc_backup type=3 src=WS-BILL-07 note=first use from a workstation
+2026-11-10T02:46:00+05:30,2026-11-09T21:16:00+00:00,firewall,3 Credential access,FW-EDGE ALLOW WS-BILL-07 10.20.5.17 -> 198.51.100.77:443 bytes=1840 note=C2 beacon
+2026-11-10T02:52:10+05:30,2026-11-09T21:22:10+00:00,auth_events,3 Credential access,SRV-EHR-01 4625 FAILED logon user=administrator type=3 src=WS-BILL-07 note=password spray
+2026-11-10T02:52:14+05:30,2026-11-09T21:22:14+00:00,auth_events,3 Credential access,SRV-EHR-01 4625 FAILED logon user=administrator type=3 src=WS-BILL-07 note=password spray
+2026-11-10T02:52:18+05:30,2026-11-09T21:22:18+00:00,auth_events,3 Credential access,SRV-EHR-01 4625 FAILED logon user=administrator type=3 src=WS-BILL-07 note=password spray
+2026-11-10T02:52:22+05:30,2026-11-09T21:22:22+00:00,auth_events,3 Credential access,SRV-EHR-01 4625 FAILED logon user=administrator type=3 src=WS-BILL-07 note=password spray
+2026-11-10T02:52:26+05:30,2026-11-09T21:22:26+00:00,auth_events,3 Credential access,SRV-EHR-01 4625 FAILED logon user=administrator type=3 src=WS-BILL-07 note=password spray
+2026-11-10T02:52:30+05:30,2026-11-09T21:22:30+00:00,auth_events,3 Credential access,SRV-EHR-01 4625 FAILED logon user=administrator type=3 src=WS-BILL-07 note=password spray
+2026-11-10T02:58:01+05:30,2026-11-09T21:28:01+00:00,firewall,4 Lateral movement,FW-INT  ALLOW WS-BILL-07 10.20.5.17 -> 10.20.1.10:3389 bytes=90210 note=RDP to SRV-EHR-01
+2026-11-10T02:58:02+05:30,2026-11-09T21:28:02+00:00,auth_events,4 Lateral movement,SRV-EHR-01 4624 SUCCESS logon user=svc_backup type=10 src=WS-BILL-07 note=RDP
+2026-11-10T03:02:11+05:30,2026-11-09T21:32:11+00:00,process_events,2 Execution,SRV-EHR-01 svc_backup FILE_CREATE C:\Users\Public\upd_svc.exe note=copied over SMB admin share
+2026-11-10T03:03:20+05:30,2026-11-09T21:33:20+00:00,process_events,2 Execution,"SRV-EHR-01 svc_backup PROC_CREATE parent=cmd.exe child=upd_svc.exe cmd=""upd_svc.exe --stage"""
+2026-11-10T03:10:04+05:30,2026-11-09T21:40:04+00:00,usb_events,5 Staging / exfil,"SRV-EHR-01 USB_INSERT vid=0781 pid=5581 serial=4C530001230815112394 desc=""SanDisk Ultra USB 3.0"" user=svc_backup"
+2026-11-10T03:10:31+05:30,2026-11-09T21:40:31+00:00,usb_events,5 Staging / exfil,SRV-EHR-01 FILE_COPY src=E:\tools\rclone.exe dst=C:\Users\Public\rc.exe
+2026-11-10T03:19:50+05:30,2026-11-09T21:49:50+00:00,usb_events,5 Staging / exfil,SRV-EHR-01 USB_REMOVE serial=4C530001230815112394
+2026-11-10T03:22:00+05:30,2026-11-09T21:52:00+00:00,firewall,5 Staging / exfil,FW-EDGE ALLOW SRV-EHR-01 10.20.1.10 -> 198.51.100.77:443 bytes=191000000 note=sustained upload
+2026-11-10T03:23:00+05:30,2026-11-09T21:53:00+00:00,firewall,5 Staging / exfil,FW-EDGE ALLOW SRV-EHR-01 10.20.1.10 -> 198.51.100.77:443 bytes=169000000 note=sustained upload
+2026-11-10T03:24:00+05:30,2026-11-09T21:54:00+00:00,firewall,5 Staging / exfil,FW-EDGE ALLOW SRV-EHR-01 10.20.1.10 -> 198.51.100.77:443 bytes=200000000 note=sustained upload
+2026-11-10T03:25:00+05:30,2026-11-09T21:55:00+00:00,firewall,5 Staging / exfil,FW-EDGE ALLOW SRV-EHR-01 10.20.1.10 -> 198.51.100.77:443 bytes=233000000 note=sustained upload
+2026-11-10T03:26:00+05:30,2026-11-09T21:56:00+00:00,firewall,5 Staging / exfil,FW-EDGE ALLOW SRV-EHR-01 10.20.1.10 -> 198.51.100.77:443 bytes=156000000 note=sustained upload
+2026-11-10T03:27:00+05:30,2026-11-09T21:57:00+00:00,firewall,5 Staging / exfil,FW-EDGE ALLOW SRV-EHR-01 10.20.1.10 -> 198.51.100.77:443 bytes=159000000 note=sustained upload
+2026-11-10T03:28:00+05:30,2026-11-09T21:58:00+00:00,firewall,5 Staging / exfil,FW-EDGE ALLOW SRV-EHR-01 10.20.1.10 -> 198.51.100.77:443 bytes=255000000 note=sustained upload
+2026-11-10T03:29:00+05:30,2026-11-09T21:59:00+00:00,firewall,5 Staging / exfil,FW-EDGE ALLOW SRV-EHR-01 10.20.1.10 -> 198.51.100.77:443 bytes=218000000 note=sustained upload
+2026-11-10T03:30:00+05:30,2026-11-09T22:00:00+00:00,firewall,5 Staging / exfil,FW-EDGE ALLOW SRV-EHR-01 10.20.1.10 -> 198.51.100.77:443 bytes=162000000 note=sustained upload
+2026-11-10T03:30:45+05:30,2026-11-09T22:00:45+00:00,firewall,5 Staging / exfil,FW-EDGE SUMMARY SRV-EHR-01 -> 198.51.100.77:443 total_bytes=1743000000
+2026-11-10T03:31:45+05:30,2026-11-09T22:01:45+00:00,edr_alerts,0 Context,EDR HIGH   SRV-EHR-01 shadow copy deletion
+2026-11-10T03:31:45+05:30,2026-11-09T22:01:45+00:00,process_events,6 Defence evasion,"SRV-EHR-01 svc_backup PROC_CREATE parent=upd_svc.exe child=vssadmin.exe cmd=""vssadmin delete shadows /all /quiet"""
+2026-11-10T03:32:10+05:30,2026-11-09T22:02:10+00:00,process_events,6 Defence evasion,"SRV-EHR-01 svc_backup PROC_CREATE parent=upd_svc.exe child=wbadmin.exe cmd=""wbadmin delete catalog -quiet"""
+2026-11-10T03:33:02+05:30,2026-11-09T22:03:02+00:00,process_events,7 Persistence,"SRV-EHR-01 svc_backup PROC_CREATE parent=upd_svc.exe child=schtasks.exe cmd=""schtasks /create /tn WinUpdateSvc /tr C:\Users\Public\upd_svc.exe /sc onlogon"""
+2026-11-10T03:33:09+05:30,2026-11-09T22:03:09+00:00,process_events,7 Persistence,SRV-EHR-01 svc_backup REG_SET HKCU\Software\Microsoft\Windows\CurrentVersion\Run\WinUpdateSvc=C:\Users\Public\upd_svc.exe
+2026-11-10T03:35:00+05:30,2026-11-09T22:05:00+00:00,process_events,8 Impact,"SRV-EHR-01 svc_backup PROC_CREATE parent=upd_svc.exe child=upd_svc.exe cmd=""upd_svc.exe --run"" note=encryption phase starts"
+2026-11-10T03:35:20+05:30,2026-11-09T22:05:20+00:00,file_audit,8 Impact,SRV-EHR-01 FILE_RENAME D:\EHR\patients_2026.mdf -> D:\EHR\patients_2026.mdf.omega
+2026-11-10T03:35:26+05:30,2026-11-09T22:05:26+00:00,file_audit,8 Impact,SRV-EHR-01 FILE_RENAME D:\EHR\radiology_idx.db -> D:\EHR\radiology_idx.db.omega
+2026-11-10T03:35:32+05:30,2026-11-09T22:05:32+00:00,file_audit,8 Impact,SRV-EHR-01 FILE_RENAME D:\EHR\billing_q3.xlsx -> D:\EHR\billing_q3.xlsx.omega
+2026-11-10T03:35:38+05:30,2026-11-09T22:05:38+00:00,file_audit,8 Impact,SRV-EHR-01 FILE_RENAME D:\EHR\lab_results.csv -> D:\EHR\lab_results.csv.omega
+2026-11-10T03:35:44+05:30,2026-11-09T22:05:44+00:00,file_audit,8 Impact,SRV-EHR-01 FILE_RENAME D:\EHR\discharge_summ.docx -> D:\EHR\discharge_summ.docx.omega
+2026-11-10T03:36:05+05:30,2026-11-09T22:06:05+00:00,file_audit,8 Impact,SRV-EHR-01 FILE_CREATE D:\EHR\README_OMEGA.txt note=ransom note (dropped in every directory)
+2026-11-10T03:36:40+05:30,2026-11-09T22:06:40+00:00,auth_events,0 Context,SRV-EHR-01 4688 note=process audit on
+2026-11-10T03:47:30+05:30,2026-11-09T22:17:30+00:00,edr_alerts,8 Impact,EDR CRIT   SRV-EHR-01 mass file rename (ransomware heuristic)
+2026-11-10T03:47:30+05:30,2026-11-09T22:17:30+00:00,file_audit,8 Impact,"SRV-EHR-01 AUDIT summary: 48,213 files renamed to *.omega in 12m10s"
+2026-11-10T03:52:00+05:30,2026-11-09T22:22:00+00:00,edr_alerts,9 Response,SOC PAGE   on-call analyst paged
+2026-11-10T04:03:00+05:30,2026-11-09T22:33:00+00:00,edr_alerts,9 Response,"SOC ACTION firewall block 198.51.100.77; SRV-EHR-01 network cable unplugged (isolated, left powered ON)"
+2026-11-10T04:03:00+05:30,2026-11-09T22:33:00+00:00,firewall,9 Response,FW-EDGE DENY  SRV-EHR-01 10.20.1.10 -> 198.51.100.77:443 note=blocked by IR team
+2026-11-10T04:12:00+05:30,2026-11-09T22:42:00+00:00,edr_alerts,9 Response,IR  FIRST RESPONDER on scene (Server Room B)
