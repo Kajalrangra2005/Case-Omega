@@ -1,0 +1,7 @@
+2026-11-10T03:35:20+05:30 SRV-EHR-01 FILE_RENAME D:\EHR\patients_2026.mdf -> D:\EHR\patients_2026.mdf.omega
+2026-11-10T03:35:26+05:30 SRV-EHR-01 FILE_RENAME D:\EHR\radiology_idx.db -> D:\EHR\radiology_idx.db.omega
+2026-11-10T03:35:32+05:30 SRV-EHR-01 FILE_RENAME D:\EHR\billing_q3.xlsx -> D:\EHR\billing_q3.xlsx.omega
+2026-11-10T03:35:38+05:30 SRV-EHR-01 FILE_RENAME D:\EHR\lab_results.csv -> D:\EHR\lab_results.csv.omega
+2026-11-10T03:35:44+05:30 SRV-EHR-01 FILE_RENAME D:\EHR\discharge_summ.docx -> D:\EHR\discharge_summ.docx.omega
+2026-11-10T03:36:05+05:30 SRV-EHR-01 FILE_CREATE D:\EHR\README_OMEGA.txt note=ransom note (dropped in every directory)
+2026-11-10T03:47:30+05:30 SRV-EHR-01 AUDIT summary: 48,213 files renamed to *.omega in 12m10s

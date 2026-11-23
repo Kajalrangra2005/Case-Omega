@@ -1,0 +1,4 @@
+timestamp,host,user,url,title
+2026-11-10T02:09:40+05:30,WS-BILL-07,rsharma,https://mail.cityhospital.example/inbox,Inbox
+2026-11-10T02:14:03+05:30,WS-BILL-07,rsharma,https://mediclaims-portal.example/claims/88213,Claim 88213 viewer
+2026-11-10T02:14:31+05:30,WS-BILL-07,rsharma,http://203.0.113.45/dl/upd_svc.exe,download

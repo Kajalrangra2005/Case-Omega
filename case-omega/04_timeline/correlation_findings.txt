@@ -1,0 +1,10 @@
+CORRELATION CHECKS (time deltas)
+- Phish delivered -> macro runs: 0:22:10
+- PowerShell -> payload download: 0:00:11
+- Credential dump -> svc_backup first use: 0:03:25
+- svc_backup RDP -> USB insert: 0:12:02
+- USB insert -> bulk upload starts: 0:11:56
+- Upload ends -> shadow copy deletion: 0:01:00
+- Encryption start -> EDR critical alert: 0:12:30
+- EDR critical -> containment: 0:15:30
+- TOTAL dwell time (first execution -> containment): 1:48:40
